@@ -1,21 +1,4 @@
-interface GithubUserData {
-  login: string;
-  avatar_url: string;
-  html_url: string;
-  gists_url: string;
-  repos_url: string;
-  events_url: string;
-  received_events_url: string;
-  blog: string;
-  location: string;
-  email: string;
-  hireable: string;
-  twitter_username: string;
-  public_repos: string;
-  followers: string;
-  following: string;
-  created_at: string;
-}
+import GithubUserData from "@/types/github-user";
 
 export default async function getUserProfileData(
   user: string
