@@ -21,15 +21,3 @@ export default function UserBio({ user }: { user: GithubUserData }) {
     </div>
   );
 }
-
-// //
-//   gists_url?: string;
-//   events_url?: string;
-//   received_events_url?: string;
-//   blog?: string;
-//   location?: string;
-//   email?: string;
-//   hireable?: string;
-//   twitter_username?: string;
-//   public_repos?: string;
-// //

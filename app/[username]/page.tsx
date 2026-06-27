@@ -11,7 +11,6 @@ export default async function UserPage({
   const userData = await getUserProfileData(routeParams.username);
   const userRepo = await getUserRepo(userData.repos_url);
   console.log(userRepo);
-
   return (
     <div className="flex space justify-around">
       <UserBio user={userData} />
