@@ -1,16 +1,6 @@
-"use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 export default function Navibar() {
-  const [username, setUsername] = useState("");
-  const router = useRouter();
-  const userViewButtonHandler = async () => {
-    if (!username.trim()) return;
-    router.push(`/${username}`);
-  };
-
   return (
     <>
       <nav className="flex items-center justify-around py-2 bg-base-content">
@@ -27,11 +17,7 @@ export default function Navibar() {
         </div>
         <Input
           placeholder="Enter GitHub username..."
-          className="w-1/5 bg-brand-content border-2 border-base-content"
-          name="username"
-          value={username ?? ""}
-          onChange={(e) => setUsername(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && userViewButtonHandler()}
+          className="w-1/5 bg-brand-content border-2 border-brand"
         ></Input>
       </nav>
     </>
