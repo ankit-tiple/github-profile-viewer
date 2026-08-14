@@ -16,9 +16,9 @@ export default function UserRepoList({ repo }: any) {
   const [repoArray, setRepoArray] = useState(repo);
   const [repoName, setRepoName] = useState("");
 
-  const inputChangeHandler = (event) => {
+  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRepoName(event.target.value);
-    const resultArray = repo.filter((ele) => {
+    const resultArray = repo.filter((ele: any) => {
       return ele[1].name.toLowerCase().includes(repoName.toLowerCase());
     });
     setRepoArray([...resultArray]);
