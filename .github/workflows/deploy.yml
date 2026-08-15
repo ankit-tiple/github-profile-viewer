@@ -46,6 +46,14 @@ jobs:
           # names/tags the imgage, e.g. ghcr.io/yourusername/yourrepo:latest
           # "latest" = tag name , means "most recent version"
       
+            # Step: Temporary Jon the Github Runner to your Tailscale Network
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v2 # Official Tailscale action for CI/CD
+        with: 
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }} # Tailscale automation "username" , stored securely in Github secret
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }} # Tailscale Automation "password" stored securely in Github secrets
+          tags: tag:ci # labels the temporary device as ci 
+
 
 
           # Step : SSH into Raspberry PI and update the running app
@@ -60,11 +68,3 @@ jobs:
             docker compose pull
             docker compose up -d
      
-            # Step: Temporary Jon the Github Runner to your Tailscale Network
-      - name: Connect to Tailscale
-        uses: tailscale/github-action@v2 # Official Tailscale action for CI/CD
-        with: 
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }} # Tailscale automation "username" , stored securely in Github secret
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }} # Tailscale Automation "password" stored securely in Github secrets
-          tags: tag:ci # labels the temporary device as ci 
-
