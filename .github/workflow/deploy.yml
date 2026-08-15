@@ -1,25 +1,43 @@
 name: Deploy Next js Gtihub Profile Viewer App
+# in the on we define the trigger which will make the github actions to execute 
 on:
   push:
     branches:
       - main
-  workflow-dispatch:
+  workflow_dispatch:
 
+
+# in the jobs we will define the runner where our github actions will run and also the steps that we are going to run in the runner
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout Code
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout Code 
+        uses: actions/checkout@v4  # pre build action to copy your code from repo to the runner i.e. github provided VM 
 
-  - name: Step Up Node
-    uses: actions/setup-node@v4
-    with:
-      node-version: "20"
+      - name: Step Up Node
+        uses: actions/setup-node@v4 # Pre build action to install and setup node in the runner 
+        with:
+          node-version: "20"
 
-  - name: Install Dependencies
-    run: npm ci
+    # Login to Github Container Repository
+      - name: Login to GHCR 
+        uses: docker/login-action@v3 # pre-built action plugin for docker login
+        with:
+          registry: ghcr.io # The Registry we are logging into (Github's)
+          username: ${{ github.actor }} # Your Github Username (auto-filled by Github)
+          password: ${{ secrets.GITHUB_TOKEN }} 
+          # Auto Generated secret token, provided by Github automatically
+          # No need to create this yourself - it exist for every repo/workflow
 
-  - name: Run Build
-    run: next build
+    # Step : Build Docker image from DockerFile then put it to GHCR 
+      - name: Build and Push Image
+        uses: docker/build-push-action@v5 # pre-built action for build+push
+        with:
+            context: . # build using files in current directory (Where DockerFile is)
+            push: true # after building, push image to registry (not just build locally)
+            tags: ghcr.io/${{ github.repository }}:latest
+            # names/tags the imgage, e.g. ghcr.io/yourusername/yourrepo:latest
+            # "latest" = tag name , means "most recent version"
+
