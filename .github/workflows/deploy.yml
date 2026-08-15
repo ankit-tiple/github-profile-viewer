@@ -56,7 +56,7 @@ jobs:
           username: ${{ secrets.PI_USER }} # Pi's SSH username , stored securely
           key: ${{ secrets.PI_SSH_KEY }} # private key for passowrdless login, stored securely
           scritps: | # "|" means multi line block - these are the command that will run on the PI once connected
-          cd /home/corvus82
-          docker compose pull
-          docker compose up -d
+            cd /home/corvus82
+            docker compose pull
+            docker compose up -d
 
