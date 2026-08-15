@@ -45,3 +45,18 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:latest
           # names/tags the imgage, e.g. ghcr.io/yourusername/yourrepo:latest
           # "latest" = tag name , means "most recent version"
+      
+
+
+          # Step : SSH into Raspberry PI and update the running app
+      - name: Deploy to Raspberry Pi
+        uses: appleboy/ssh-action@v1 # pre-build action that handles SSH Connection 
+        with:
+          host: ${{ secrets.PI_HOST }} # Pi's address (hostname/IP), stored securely
+          username: ${{ secrets.PI_USER }} # Pi's SSH username , stored securely
+          key: ${{ secrets.PI_SSH_KEY }} # private key for passowrdless login, stored securely
+          scritps: | # "|" means multi line block - these are the command that will run on the PI once connected
+          cd /home/corvus82
+          docker compose pull
+          docker compose up -d
+
